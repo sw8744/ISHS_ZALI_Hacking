@@ -1,6 +1,6 @@
 Thanks For [@miho73](https://github.com/miho73)
 
-Originally made by [@miho73](https://github.com/miho73)'s [Goodbye ZARI](https://gist.github.com/miho73/d1ba389306c69935da770c03be4bd750)
+Originally made by [@miho73](https://github.com/miho73)'s [exploit.js](https://gist.github.com/miho73/d1ba389306c69935da770c03be4bd750)
 
 # 개요
 이 프로그램은 기존에 사용하던 자리 예약 프로그램을 가지고 놀 수 있는 코드입니다.
