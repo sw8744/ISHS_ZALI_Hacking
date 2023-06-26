@@ -193,9 +193,10 @@ const exploit = {
         if(string.split(' ').length != 1) {
             temp = string.split(' ');
             string = "";
-            for(var i=0; i<=string.split(' ').length; i++) {
+            for(var i=0; i<=temp.length; i++) {
                 string += temp[i];
             }
+            console.log(string);
         }
         var string_finish = [];
         var zali_arr = ['A1', 'A2', 'B1', 'B2', 'A3', 'A4', 'B3', 'B4', 'A5', 'A6', 'B5', 'B6', 'C1', 'C2', 'D1', 'D2', 'C3', 'C4', 'D3', 'D4', 'C5', 'C6', 'D5', 'D6', 'E1', 'E2', 'F1', 'F2', 'E3', 'E4', 'F3', 'F4', 'E5', 'E6', 'F5', 'F6'];
