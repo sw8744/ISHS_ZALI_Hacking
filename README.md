@@ -6,7 +6,7 @@ Originally made by [@miho73](https://github.com/miho73)'s [Goodbye Zali](https:/
 이 프로그램은 기존에 사용하던 자리 예약 프로그램을 가지고 놀 수 있는 코드입니다.
 
 # 사용법
-[ISHS Zali](https://project01-2cc6f.web.app/1.html) 사이트에 접속하여 원하는 시간대를 고른 후, 콘솔창을 켜 index.js를 복사하시면 됩니다.
+[ISHS ZALI](https://project01-2cc6f.web.app/1.html) 사이트에 접속하여 원하는 시간대를 고른 후, 콘솔창을 켜 index.js를 복사하시면 됩니다.
 
 ```
 exploit.원하는함수명();
